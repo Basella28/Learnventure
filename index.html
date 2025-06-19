@@ -1,478 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>LearnVenture Demo</title>
-<style>
-  /* Reset & base */
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #1a1a1a;
-    color: #eee;
-    min-height: 100vh;
-    display: flex; flex-direction: column; align-items: center;
-  }
-  button {
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 0.5em 1.2em;
-    border: none;
-    border-radius: 6px;
-    margin: 0.3em;
-    transition: background-color 0.3s ease;
-  }
-  button:hover {
-    filter: brightness(1.2);
-  }
-
-  /* THEME SELECTION */
-  #theme-selection, #name-selection, #difficulty-selection, #game-screen, #mission-complete {
-    max-width: 700px;
-    width: 90%;
-    margin-top: 3em;
-    padding: 1.5em;
-    border-radius: 15px;
-    box-shadow: 0 0 15px #000;
-    background-color: #222;
-  }
-  h1, h2 {
-    margin-top: 0;
-    text-align: center;
-    user-select: none;
-  }
-  .btn-group {
-    display: flex; justify-content: center; flex-wrap: wrap;
-  }
-
-  /* Themes */
-
-  /* Medieval theme */
-  .medieval {
-    background-color: #3e2f1c;
-    color: #f3deb8;
-    font-family: 'Papyrus', fantasy, serif;
-    box-shadow: 0 0 20px #b38b4a;
-  }
-  .medieval button {
-    background-color: #a67c00;
-    color: #3e2f1c;
-    font-weight: bold;
-    box-shadow: inset 0 2px 4px #5a4200;
-  }
-
-  /* Futuristic theme */
-  .futuristic {
-    background-color: #0b1e2d;
-    color: #61dafb;
-    font-family: 'Orbitron', 'Courier New', monospace;
-    box-shadow: 0 0 20px #39c5f9;
-  }
-  .futuristic button {
-    background-color: #0288d1;
-    color: #d0f0ff;
-    font-weight: bold;
-    box-shadow: inset 0 2px 6px #015a8a;
-  }
-
-  /* Game elements */
-  #story-text {
-    font-size: 1.2rem;
-    min-height: 8em;
-    margin-bottom: 1em;
-    line-height: 1.4em;
-  }
-  #question-text {
-    font-size: 1.1rem;
-    margin-bottom: 0.8em;
-  }
-  #answers {
-    display: flex; flex-direction: column;
-    gap: 0.6em;
-  }
-  .answer-btn {
-    background-color: #444;
-    color: #eee;
-    border-radius: 8px;
-    padding: 0.6em 1em;
-    text-align: left;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.7);
-    font-size: 1rem;
-  }
-  .answer-btn:hover {
-    background-color: #666;
-  }
-  #attack-animation {
-    margin-top: 1em;
-    height: 60px;
-    font-size: 2.5rem;
-    text-align: center;
-    user-select: none;
-  }
-  #correct-answer {
-    margin-top: 0.5em;
-    font-style: italic;
-    color: #ffcc00;
-  }
-  #difficulty-level {
-    margin-top: 0.5em;
-    text-align: center;
-  }
-  #continue-buttons {
-    margin-top: 1em;
-    display: flex; justify-content: center; gap: 1em;
-  }
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LearnVenture</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      background: #f0f0f0;
+      margin: 0;
+      padding: 50px;
+    }
+    h1 {
+      color: #333;
+    }
+    .button-container {
+      margin-top: 30px;
+    }
+    button {
+      font-size: 18px;
+      padding: 10px 25px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .medieval {
+      background-color: #4b2e83;
+      color: white;
+    }
+    .futuristic {
+      background-color: #00bcd4;
+      color: white;
+    }
+    button:hover {
+      opacity: 0.8;
+    }
+    .message {
+      font-size: 22px;
+      margin-top: 40px;
+      color: #222;
+    }
+  </style>
 </head>
 <body>
+  <h1>Welcome to LearnVenture</h1>
+  <p>Select your adventure style:</p>
 
-<!-- THEME SELECTION -->
-<div id="theme-selection" class="medieval">
-  <h1>Welcome to LearnVenture!</h1>
-  <h2>Choose your theme:</h2>
-  <div class="btn-group">
-    <button id="btn-medieval">Medieval</button>
-    <button id="btn-futuristic">Futuristic</button>
+  <div class="button-container" id="styleButtons">
+    <button class="medieval" onclick="selectStyle('Medieval')">Medieval</button>
+    <button class="futuristic" onclick="selectStyle('Futuristic')">Futuristic</button>
   </div>
-</div>
 
-<!-- NAME SELECTION -->
-<div id="name-selection" style="display:none;">
-  <h1>Choose your Game Name</h1>
-  <h2>Our game is called <strong>LearnVenture</strong>!</h2>
-  <div class="btn-group">
-    <button disabled>LearnVenture</button>
-  </div>
-  <div style="text-align:center; margin-top:1em;">
-    <button id="start-game-btn">Start Your Adventure</button>
-  </div>
-</div>
+  <div class="message" id="resultMessage"></div>
 
-<!-- DIFFICULTY SELECTION -->
-<div id="difficulty-selection" style="display:none;">
-  <h1>Choose your understanding level</h1>
-  <p>Select how well you understood the topic. This controls the number of questions you'll get.</p>
-  <div class="btn-group">
-    <button data-difficulty="low">Low difficulty (You understood most)</button>
-    <button data-difficulty="medium">Medium difficulty</button>
-    <button data-difficulty="extreme">Extreme difficulty (Need full help!)</button>
-  </div>
-</div>
-
-<!-- GAME SCREEN -->
-<div id="game-screen" style="display:none;">
-  <h1 id="game-title" style="text-align:center;">LearnVenture</h1>
-  <div id="story-text">Loading story...</div>
-  <div id="question-text"></div>
-  <div id="answers"></div>
-  <div id="attack-animation"></div>
-  <div id="correct-answer"></div>
-  <div id="difficulty-level"></div>
-</div>
-
-<!-- MISSION COMPLETE -->
-<div id="mission-complete" style="display:none;">
-  <h1>Mission Complete!</h1>
-  <p>Would you like to continue your current story or start a new adventure?</p>
-  <div id="continue-buttons">
-    <button id="continue-quest-btn">Continue Current Story</button>
-    <button id="new-quest-btn">Start New Quest</button>
-  </div>
-</div>
-
-<script>
-  // Game Data: photosynthesis story + questions by difficulty
-  const stories = {
-    photosynthesis: {
-      medieval: "In the ancient forest, the great oak teaches how sunlight turns into life through its leaves...",
-      futuristic: "In a high-tech lab on Mars, scientists uncover the secrets of plants turning sunlight into energy..."
-    },
-    questions: {
-      low: [
-        {
-          q: "What do plants need to start photosynthesis?",
-          options: ["Sunlight", "Moonlight", "Water", "Fire"],
-          answer: 0,
-          explanation: "Plants need sunlight to start photosynthesis."
-        },
-        {
-          q: "What gas do plants take from the air?",
-          options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Helium"],
-          answer: 2,
-          explanation: "Plants take in carbon dioxide from the air for photosynthesis."
-        }
-      ],
-      medium: [
-        {
-          q: "What is the green pigment in leaves called?",
-          options: ["Chlorophyll", "Hemoglobin", "Melanin", "Keratin"],
-          answer: 0,
-          explanation: "Chlorophyll is the green pigment that captures sunlight."
-        },
-        {
-          q: "Photosynthesis produces what gas?",
-          options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
-          answer: 0,
-          explanation: "Photosynthesis releases oxygen as a byproduct."
-        },
-        {
-          q: "Where does photosynthesis mainly take place?",
-          options: ["Roots", "Leaves", "Stem", "Flowers"],
-          answer: 1,
-          explanation: "Photosynthesis mostly happens in the leaves."
-        },
-        {
-          q: "What do plants convert sunlight into?",
-          options: ["Water", "Glucose (Sugar)", "Oxygen", "Protein"],
-          answer: 1,
-          explanation: "Plants convert sunlight into glucose, a type of sugar."
-        }
-      ],
-      extreme: [
-        {
-          q: "What are the raw materials for photosynthesis?",
-          options: ["Carbon Dioxide and Water", "Oxygen and Water", "Glucose and Oxygen", "Sunlight and Oxygen"],
-          answer: 0,
-          explanation: "The raw materials are carbon dioxide and water."
-        },
-        {
-          q: "Which organelle in plant cells does photosynthesis?",
-          options: ["Chloroplast", "Mitochondria", "Nucleus", "Ribosome"],
-          answer: 0,
-          explanation: "Chloroplasts perform photosynthesis."
-        },
-        {
-          q: "What is the formula for photosynthesis?",
-          options: [
-            "6CO₂ + 6H₂O + Light → C₆H₁₂O₆ + 6O₂",
-            "CO₂ + H₂O → O₂ + Sugar",
-            "6O₂ + 6H₂O → C₆H₁₂O₆ + Light",
-            "C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O"
-          ],
-          answer: 0,
-          explanation: "The formula shows reactants and products in photosynthesis."
-        },
-        {
-          q: "What powers the photosynthesis process?",
-          options: ["Sunlight", "Wind", "Heat", "Electricity"],
-          answer: 0,
-          explanation: "Sunlight provides energy for photosynthesis."
-        },
-        {
-          q: "In photosynthesis, what happens after sunlight is absorbed?",
-          options: [
-            "Water splits and oxygen is released",
-            "Carbon dioxide is released",
-            "Glucose breaks down",
-            "Leaves fall off"
-          ],
-          answer: 0,
-          explanation: "Water molecules split and oxygen is released."
-        },
-        {
-          q: "Which part of the plant cell contains chlorophyll?",
-          options: ["Chloroplast", "Nucleus", "Cell Wall", "Vacuole"],
-          answer: 0,
-          explanation: "Chloroplast contains chlorophyll."
-        },
-        {
-          q: "What is glucose used for in plants?",
-          options: ["Energy", "Oxygen", "Water", "Soil"],
-          answer: 0,
-          explanation: "Glucose provides energy for the plant."
-        },
-        {
-          q: "What is the oxygen released during photosynthesis used for?",
-          options: ["Breathing by animals", "Photosynthesis", "Watering plants", "None"],
-          answer: 0,
-          explanation: "Animals and humans breathe oxygen."
-        },
-        {
-          q: "What is the main pigment that captures light energy?",
-          options: ["Chlorophyll", "Carotenoids", "Xanthophyll", "Anthocyanins"],
-          answer: 0,
-          explanation: "Chlorophyll captures light energy."
-        },
-        {
-          q: "What gas do stomata control in leaves?",
-          options: ["Carbon Dioxide and Oxygen", "Nitrogen and Oxygen", "Hydrogen and Oxygen", "Carbon Monoxide"],
-          answer: 0,
-          explanation: "Stomata control carbon dioxide intake and oxygen release."
-        },
-        {
-          q: "What happens to glucose after photosynthesis?",
-          options: ["Used for growth and energy", "Released as gas", "Turns into water", "Turns into oxygen"],
-          answer: 0,
-          explanation: "Glucose is used for growth and energy."
-        },
-        {
-          q: "Photosynthesis mostly happens during what time?",
-          options: ["Daytime", "Nighttime", "Evening", "Morning"],
-          answer: 0,
-          explanation: "It mostly happens during daytime when sunlight is available."
-        },
-        {
-          q: "What happens to oxygen during photosynthesis?",
-          options: ["Released into the air", "Absorbed by roots", "Used for photosynthesis", "Turned into glucose"],
-          answer: 0,
-          explanation: "Oxygen is released into the air."
-        },
-        {
-          q: "What role does water play in photosynthesis?",
-          options: ["Source of electrons and hydrogen", "Source of oxygen", "Source of glucose", "No role"],
-          answer: 0,
-          explanation: "Water provides electrons and hydrogen atoms."
-        },
-        {
-          q: "Why is photosynthesis important for life on Earth?",
-          options: ["Produces oxygen and food", "Produces carbon dioxide", "Consumes oxygen", "Produces nitrogen"],
-          answer: 0,
-          explanation: "It produces oxygen and food for living organisms."
-        }
-      ]
+  <script>
+    function selectStyle(style) {
+      document.getElementById('styleButtons').style.display = 'none';
+      document.getElementById('resultMessage').innerText = `You chose the ${style} theme! Your adventure will begin soon... 🛡️🚀`;
     }
-  };
-
-  // Global variables
-  let chosenTheme = "medieval";
-  let difficulty = "low";
-  let currentQuestionIndex = 0;
-  let questions = [];
-  let missionActive = false;
-
-  // DOM elements
-  const themeSelectionEl = document.getElementById("theme-selection");
-  const nameSelectionEl = document.getElementById("name-selection");
-  const difficultySelectionEl = document.getElementById("difficulty-selection");
-  const gameScreenEl = document.getElementById("game-screen");
-  const missionCompleteEl = document.getElementById("mission-complete");
-
-  const storyTextEl = document.getElementById("story-text");
-  const questionTextEl = document.getElementById("question-text");
-  const answersEl = document.getElementById("answers");
-  const attackAnimationEl = document.getElementById("attack-animation");
-  const correctAnswerEl = document.getElementById("correct-answer");
-  const difficultyLevelEl = document.getElementById("difficulty-level");
-  const gameTitleEl = document.getElementById("game-title");
-
-  // Theme selection buttons
-  document.getElementById("btn-medieval").addEventListener("click", () => {
-    chosenTheme = "medieval";
-    applyTheme(chosenTheme);
-    themeSelectionEl.style.display = "none";
-    nameSelectionEl.style.display = "block";
-  });
-  document.getElementById("btn-futuristic").addEventListener("click", () => {
-    chosenTheme = "futuristic";
-    applyTheme(chosenTheme);
-    themeSelectionEl.style.display = "none";
-    nameSelectionEl.style.display = "block";
-  });
-
-  // Apply chosen theme styles
-  function applyTheme(theme) {
-    document.body.className = "";
-    if (theme === "medieval") {
-      themeSelectionEl.className = "medieval";
-      nameSelectionEl.className = "medieval";
-      difficultySelectionEl.className = "medieval";
-      gameScreenEl.className = "medieval";
-      missionCompleteEl.className = "medieval";
-    } else if (theme === "futuristic") {
-      themeSelectionEl.className = "futuristic";
-      nameSelectionEl.className = "futuristic";
-      difficultySelectionEl.className = "futuristic";
-      gameScreenEl.className = "futuristic";
-      missionCompleteEl.className = "futuristic";
-    }
-  }
-
-  // Start game button
-  document.getElementById("start-game-btn").addEventListener("click", () => {
-    nameSelectionEl.style.display = "none";
-    difficultySelectionEl.style.display = "block";
-  });
-
-  // Difficulty buttons
-  difficultySelectionEl.querySelectorAll("button").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      difficulty = btn.dataset.difficulty;
-      difficultySelectionEl.style.display = "none";
-      startMission();
-    });
-  });
-
-  // Start the mission
-  function startMission() {
-    missionActive = true;
-    currentQuestionIndex = 0;
-    questions = [...stories.questions[difficulty]]; // clone array
-    gameScreenEl.style.display = "block";
-    missionCompleteEl.style.display = "none";
-    correctAnswerEl.textContent = "";
-    attackAnimationEl.textContent = "";
-    difficultyLevelEl.textContent = `Difficulty: ${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}`;
-
-    // Show story intro
-    storyTextEl.textContent = stories.photosynthesis[chosenTheme];
-
-    gameTitleEl.textContent = "LearnVenture - Photosynthesis Quest";
-    showQuestion();
-  }
-
-  // Show current question
-  function showQuestion() {
-    correctAnswerEl.textContent = "";
-    attackAnimationEl.textContent = "";
-    if (currentQuestionIndex >= questions.length) {
-      endMission();
-      return;
-    }
-    const q = questions[currentQuestionIndex];
-    questionTextEl.textContent = q.q;
-
-    // Clear old answers
-    answersEl.innerHTML = "";
-    q.options.forEach((opt, i) => {
-      const btn = document.createElement("button");
-      btn.textContent = opt;
-      btn.className = "answer-btn";
-      btn.addEventListener("click", () => handleAnswer(i));
-      answersEl.appendChild(btn);
-    });
-  }
-
-  // Handle answer click
-  function handleAnswer(selectedIndex) {
-    if (!missionActive) return;
-
-    const q = questions[currentQuestionIndex];
-    const isCorrect = selectedIndex === q.answer;
-
-    if (isCorrect) {
-      attackAnimationEl.textContent = "⚔️💥 Strong Attack!";
-    } else {
-      attackAnimationEl.textContent = "🛡️ Weak Attack...";
-      correctAnswerEl.textContent = `Correct answer: ${q.options[q.answer]} — ${q.explanation}`;
-    }
-
-    currentQuestionIndex++;
-    // Delay to show animation
-    setTimeout(() => {
-      showQuestion();
-    }, 1500);
-  }
-
-  // End mission screen
-  function endMission() {
-    missionActive = false;
-    gameScreenEl.style.display = "none";
-    missionCompleteEl.style.display = "block";
-  }
-
-  // Continue or new quest buttons
-  document.get
+  </script>
+</body>
+</html>
