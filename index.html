@@ -11,7 +11,7 @@
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: white;
-      background-image: url('background.jpg'); /* <- Replace this with your image path */
+      background-image: url('background.jpg'); /* Uses the uploaded image */
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -84,8 +84,8 @@
   <h1>Welcome to LearnVenture</h1>
   <p>Choose your adventure style:</p>
   <div class="button-container">
-    <button class="medieval-style" onclick="alert('Medieval mode selected!')">Medieval 🛡️</button>
-    <button class="futuristic-style" onclick="alert('Futuristic mode selected!')">Futuristic 🚀</button>
+    <button class="medieval-style" onclick="window.location.href='main.html'">Medieval 🛡️</button>
+    <button class="futuristic-style" onclick="window.location.href='main.html'">Futuristic 🚀</button>
   </div>
 </body>
 </html>
