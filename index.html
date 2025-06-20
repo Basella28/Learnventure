@@ -8,58 +8,136 @@
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
-      background: #f0f0f0;
       margin: 0;
-      padding: 50px;
+      padding: 0;
+      background-color: #1a1a1a;
+      color: #fff;
     }
+
+    .container {
+      padding: 40px 20px;
+    }
+
     h1 {
-      color: #333;
+      font-size: 36px;
+      margin-bottom: 20px;
     }
+
     .button-container {
-      margin-top: 30px;
+      margin: 20px auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
     }
+
     button {
-      font-size: 18px;
-      padding: 10px 25px;
-      margin: 10px;
+      font-size: 16px;
+      padding: 12px 20px;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all 0.3s ease;
     }
-    .medieval {
-      background-color: #4b2e83;
-      color: white;
+
+    .medieval-style {
+      background: linear-gradient(145deg, #4b2e83, #2c1b47);
+      color: #fff;
     }
-    .futuristic {
-      background-color: #00bcd4;
-      color: white;
+
+    .futuristic-style {
+      background: linear-gradient(145deg, #00bcd4, #004e61);
+      color: #fff;
     }
+
     button:hover {
-      opacity: 0.8;
+      transform: scale(1.05);
+      opacity: 0.9;
     }
-    .message {
-      font-size: 22px;
-      margin-top: 40px;
-      color: #222;
+
+    .main-menu {
+      display: none;
+    }
+
+    .subject-button {
+      background-color: #444;
+      color: #fff;
+      border: 2px solid #666;
+      border-radius: 8px;
+      padding: 10px 18px;
+    }
+
+    .subject-button.active {
+      background-color: #00bcd4;
+      border-color: #0097a7;
+    }
+
+    #story-content {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #e0e0e0;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to LearnVenture</h1>
-  <p>Select your adventure style:</p>
-
-  <div class="button-container" id="styleButtons">
-    <button class="medieval" onclick="selectStyle('Medieval')">Medieval</button>
-    <button class="futuristic" onclick="selectStyle('Futuristic')">Futuristic</button>
+  <div class="container" id="start-screen">
+    <h1>Welcome to LearnVenture</h1>
+    <p>Choose your adventure style:</p>
+    <div class="button-container">
+      <button class="medieval-style" onclick="selectStyle('medieval')">Medieval 🛡️</button>
+      <button class="futuristic-style" onclick="selectStyle('futuristic')">Futuristic 🚀</button>
+    </div>
   </div>
 
-  <div class="message" id="resultMessage"></div>
+  <div class="container main-menu" id="main-menu">
+    <h1>Select a Subject</h1>
+    <div class="button-container">
+      <button class="subject-button" onclick="showStory('biology')">Biology</button>
+      <button class="subject-button" disabled>Math</button>
+      <button class="subject-button" disabled>Physics</button>
+      <button class="subject-button" disabled>Chemistry</button>
+      <button class="subject-button" disabled>English</button>
+      <button class="subject-button" disabled>History</button>
+      <button class="subject-button" disabled>Geography</button>
+      <button class="subject-button" disabled>Computer Science</button>
+      <button class="subject-button" disabled>Philosophy</button>
+      <button class="subject-button" disabled>Economics</button>
+      <button class="subject-button" disabled>Sociology</button>
+      <button class="subject-button" disabled>Art / Design</button>
+      <button class="subject-button" disabled>Engineering</button>
+      <button class="subject-button" disabled>Medicine</button>
+      <button class="subject-button" disabled>Psychology</button>
+      <button class="subject-button" disabled>Law</button>
+    </div>
+    <div id="story-content"></div>
+  </div>
 
   <script>
+    let selectedTheme = '';
+
     function selectStyle(style) {
-      document.getElementById('styleButtons').style.display = 'none';
-      document.getElementById('resultMessage').innerText = `You chose the ${style} theme! Your adventure will begin soon... 🛡️🚀`;
+      selectedTheme = style;
+      document.getElementById('start-screen').style.display = 'none';
+      document.getElementById('main-menu').style.display = 'block';
+
+      // Change background based on theme
+      if (style === 'medieval') {
+        document.body.style.background = "linear-gradient(to bottom, #2c1b47, #4b2e83)";
+      } else {
+        document.body.style.background = "linear-gradient(to bottom, #004e61, #00bcd4)";
+      }
+    }
+
+    function showStory(subject) {
+      const story = `
+        <h2>Topic: Photosynthesis 🌿</h2>
+        <p>Welcome, brave student! In this ${selectedTheme} world, your quest is to help the kingdom understand photosynthesis.</p>
+        <p>Plants use sunlight to create energy. Can you answer this question?</p>
+        <p><strong>What do plants use in photosynthesis?</strong></p>
+        <p>🌞 Sunlight<br>💧 Water<br>💨 Carbon Dioxide</p>
+        <p>⚔️ Answer correctly to power your next move!</p>
+      `;
+      document.getElementById('story-content').innerHTML = story;
     }
   </script>
 </body>
